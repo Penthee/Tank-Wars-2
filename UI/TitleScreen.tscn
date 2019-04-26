@@ -1,0 +1,772 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://UI/TitleScreen.gd" type="Script" id=1]
+[ext_resource path="res://environment/Obstacle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/onlyObjects_retina_rotated.png" type="Texture" id=3]
+[ext_resource path="res://effects/Explosion.tscn" type="PackedScene" id=4]
+[ext_resource path="res://effects/Smoke.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/UnitDisplay.tscn" type="PackedScene" id=6]
+[ext_resource path="res://tanks/EnemyTank.tscn" type="PackedScene" id=7]
+[ext_resource path="res://terrain/terrain_tiles.tres" type="TileSet" id=8]
+[ext_resource path="res://UI/D Day Stencil.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://UI/Pickel.png" type="Texture" id=10]
+
+[sub_resource type="Animation" id=1]
+resource_name = "fire"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Turret/Barrel:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 20, 0 ), Vector2( 10, 0 ), Vector2( 20, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Turret/Barrel/Flash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Turret/Barrel/Flash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.11, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Turret/Barrel/Flash:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.02, 0.07 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 130.0
+
+[sub_resource type="Curve2D" id=6]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 100.736, 59.5785, -45.2631, -5.26315, 45.2631, 5.26315, 270.21, 66.9469, 0, 0, 0, 0, 317.578, 116.421, -1.05263, -34.7368, 1.05263, 34.7368, 321.788, 154.315, 0, 0, 0, 0, 362.841, 191.157, -29.0919, 2.30052, 29.0919, -2.30052, 777.577, 193.262, 0, 0, 0, 0, 823.893, 232.21, 21.4769, -50.4411, -21.4769, 50.4411, 831.261, 411.157, 52.6315, -11.5789, -52.6315, 11.5789, 567.051, 570.104, 36.6556, 9.35476, -36.6556, -9.35476, 118.631, 576.42, 0, 0, 0, 0, 60.7362, 511.157, -1.05263, 54.7367, 1.05263, -54.7367, 59.6836, 124.842, 0, 0, 0, 0, 100.736, 59.5785 )
+}
+
+[sub_resource type="DynamicFont" id=4]
+size = 64
+outline_size = 5
+outline_color = Color( 0.223529, 0.215686, 0.215686, 1 )
+font_data = ExtResource( 9 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "init"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Title:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.378929, 0.287175 ),
+"update": 0,
+"values": [ Vector2( 0, -75 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PlayMessage:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.31864, 0.392292 ),
+"update": 0,
+"values": [ Vector2( -800, 537.619 ), Vector2( 0, 537.619 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Instructions:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.329877, 0.297302 ),
+"update": 0,
+"values": [ Vector2( 800, 117.604 ), Vector2( 0, 117.604 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Instructions2:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.3, 0.8, 1 ),
+"transitions": PoolRealArray( 1.86607, 0.435275, 1.93187 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Pikl:rect_rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 0.615573 ),
+"update": 0,
+"values": [ 0.0, 720.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Pikl:rect_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.3, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0.35, 0.35 ), Vector2( 0.25, 0.25 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "start"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayMessage:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Instructions:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Instructions2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Title:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Pikl:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 675, 256 ), Vector2( 256, 64 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Pikl:rect_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.75 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 9, 9 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Pikl:rect_rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 720.0, 72.0 ]
+}
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Obstacles" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Obstacle" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 64.2104, 14.7368 )
+rotation = -1.78442
+z_index = -10
+type = 10
+
+[node name="Obstacle2" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 404.21, 266.315 )
+rotation = -0.192512
+z_index = -10
+type = 8
+
+[node name="Obstacle3" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 611.578, 270.526 )
+rotation = 0.533932
+z_index = -10
+type = 8
+
+[node name="Obstacle4" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 528.42, 284.21 )
+rotation = 0.880525
+z_index = -10
+type = 8
+
+[node name="Obstacle5" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 464.21, 284.21 )
+rotation = 1.53768
+z_index = -10
+type = 8
+
+[node name="Obstacle6" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 953.682, 136.842 )
+rotation = 1.30281
+z_index = -10
+type = 16
+
+[node name="Obstacle7" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 796.841, 2.10522 )
+rotation = 1.30281
+z_index = -10
+type = 16
+
+[node name="Obstacle15" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( -12.6655, 565.457 )
+rotation = 1.30281
+z_index = -10
+type = 17
+
+[node name="Obstacle8" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 186.315, 459.999 )
+rotation = 1.30281
+z_index = -10
+type = 18
+
+[node name="Obstacle9" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 1007.37, 575.788 )
+rotation = 1.30281
+z_index = -10
+type = 18
+
+[node name="Obstacle10" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 219.999, 154.736 )
+rotation = 1.30281
+z_index = -10
+type = 19
+
+[node name="Obstacle11" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 786.238, 572.469 )
+rotation = 0.3987
+z_index = -10
+type = 11
+
+[node name="Obstacle13" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 698.946, 262.105 )
+rotation = 1.54075
+z_index = -10
+type = 13
+
+[node name="Obstacle14" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 767.367, 338.947 )
+rotation = 2.98081
+z_index = -10
+type = 13
+
+[node name="Obstacle12" parent="Obstacles" instance=ExtResource( 2 )]
+position = Vector2( 865.491, 508.377 )
+rotation = 1.71226
+z_index = -10
+type = 11
+
+[node name="Tanks" type="Node2D" parent="."]
+
+[node name="Player" type="KinematicBody2D" parent="Tanks"]
+editor/display_folded = true
+position = Vector2( 155.789, 245.263 )
+rotation = 0.66752
+z_index = -2
+collision_layer = 2
+collision_mask = 5
+
+[node name="Body" type="Sprite" parent="Tanks/Player"]
+editor/display_folded = true
+position = Vector2( 0.0248947, 0.572567 )
+z_index = -2
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 308, 262, 80, 84 )
+
+[node name="Light" type="Sprite" parent="Tanks/Player/Body"]
+position = Vector2( 37.05, -20.5726 )
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 744, 62, 32, 24 )
+
+[node name="Light2" type="Sprite" parent="Tanks/Player/Body"]
+position = Vector2( 37.05, 18.9773 )
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 744, 62, 32, 24 )
+
+[node name="Turret" type="Sprite" parent="Tanks/Player"]
+scale = Vector2( 0.4, 0.4 )
+z_index = 2
+texture = ExtResource( 3 )
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 104, 346, 112, 96 )
+
+[node name="Barrel" type="Sprite" parent="Tanks/Player/Turret"]
+scale = Vector2( 2.5, 2.5 )
+z_index = -1
+texture = ExtResource( 3 )
+offset = Vector2( 20, 0 )
+region_enabled = true
+region_rect = Rect2( 684, 14, 60, 24 )
+
+[node name="ShootSpawn" type="Position2D" parent="Tanks/Player/Turret/Barrel"]
+position = Vector2( 45, 0 )
+
+[node name="Flash" type="Sprite" parent="Tanks/Player/Turret/Barrel"]
+modulate = Color( 1, 1, 1, 0 )
+region_enabled = true
+
+[node name="GunCooldown" type="Timer" parent="Tanks/Player"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tanks/Player"]
+visible = false
+polygon = PoolVector2Array( 36.9724, -30.0036, 37.8559, -29.7447, 38.6738, -29.3741, 39.3894, -28.7223, 39.9947, -27.9723, 40.0112, 26.9249, 39.612, 28.4011, 38.7905, 29.596, 37.496, 30.2184, 36.077, 30.6167, 35.6289, 31.7369, 35.0812, 32.8572, 34.3593, 34.1517, 33.6872, 35.3466, 32.5918, 36.2926, 31.4965, 37.1141, 30.3015, 37.7116, 28.9789, 38.0067, -28.9322, 38.0712, -30.0545, 37.6437, -31.0745, 37.1649, -32.1779, 36.4571, -33.2916, 35.4266, -34.1972, 34.1359, -34.9882, 32.7932, -35.6128, 31.3151, -36.0423, 30.0281, -36.9753, 30.0281, -38.1525, 29.7018, -38.9748, 28.9627, -39.8075, 27.672, -40.0317, 26.0388, -39.9964, -27.9949, -39.6894, -28.6071, -39.1679, -29.1634, -38.5942, -29.6502, -37.9771, -30.0142, -36.1033, -30.0263, -35.1594, -33.5521, -34.2306, -34.7786, -33.2223, -35.8565, -32.1966, -36.6735, -30.9623, -37.3342, -29.6063, -37.7862, -28.0379, -38.0407, 28.9104, -38.0129, 30.2394, -37.5656, 31.4023, -36.9138, 32.4119, -36.1599, 33.3959, -35.227, 34.2393, -34.0896, 34.9039, -32.7861, 35.5428, -31.3932, 36.0259, -29.9753 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Tanks/Player"]
+anims/fire = SubResource( 1 )
+anims/init = SubResource( 2 )
+anims/muzzle_flash = SubResource( 3 )
+
+[node name="Explosion" parent="Tanks/Player" instance=ExtResource( 4 )]
+visible = false
+scale = Vector2( 1.2, 1.2 )
+animation = "fire"
+
+[node name="Smoke" parent="Tanks/Player" instance=ExtResource( 5 )]
+visible = false
+position = Vector2( -19.9828, 0 )
+
+[node name="EnemyTank" type="KinematicBody2D" parent="Tanks"]
+editor/display_folded = true
+position = Vector2( 330.526, 468.42 )
+rotation = -2.28664
+z_index = -2
+z_as_relative = false
+collision_layer = 4
+collision_mask = 3
+
+[node name="Body" type="Sprite" parent="Tanks/EnemyTank"]
+editor/display_folded = true
+position = Vector2( 0.0248947, 0.572567 )
+z_index = -2
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 268, 186, 80, 76 )
+
+[node name="Light" type="Sprite" parent="Tanks/EnemyTank/Body"]
+position = Vector2( 37.05, -20.5726 )
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 744, 62, 32, 24 )
+
+[node name="Light2" type="Sprite" parent="Tanks/EnemyTank/Body"]
+position = Vector2( 37.05, 18.9773 )
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 744, 62, 32, 24 )
+
+[node name="Turret" type="Sprite" parent="Tanks/EnemyTank"]
+scale = Vector2( 0.4, 0.4 )
+z_index = 2
+texture = ExtResource( 3 )
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 104, 345, 112, 97 )
+
+[node name="Barrel" type="Sprite" parent="Tanks/EnemyTank/Turret"]
+scale = Vector2( 2.5, 2.5 )
+z_index = -1
+texture = ExtResource( 3 )
+offset = Vector2( 20, 0 )
+region_enabled = true
+region_rect = Rect2( 452, 34, 60, 24 )
+
+[node name="ShootSpawn" type="Position2D" parent="Tanks/EnemyTank/Turret/Barrel"]
+position = Vector2( 45, 0 )
+
+[node name="Flash" type="Sprite" parent="Tanks/EnemyTank/Turret/Barrel"]
+modulate = Color( 1, 1, 1, 0 )
+region_enabled = true
+
+[node name="GunCooldown" type="Timer" parent="Tanks/EnemyTank"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tanks/EnemyTank"]
+visible = false
+polygon = PoolVector2Array( 36.9724, -30.0036, 37.8559, -29.7447, 38.6738, -29.3741, 39.3894, -28.7223, 39.9947, -27.9723, 40.0112, 26.9249, 39.612, 28.4011, 38.7905, 29.596, 37.496, 30.2184, 36.077, 30.6167, 35.6289, 31.7369, 35.0812, 32.8572, 34.3593, 34.1517, 33.6872, 35.3466, 32.5918, 36.2926, 31.4965, 37.1141, 30.3015, 37.7116, 28.9789, 38.0067, -28.9322, 38.0712, -30.0545, 37.6437, -31.0745, 37.1649, -32.1779, 36.4571, -33.2916, 35.4266, -34.1972, 34.1359, -34.9882, 32.7932, -35.6128, 31.3151, -36.0423, 30.0281, -36.9753, 30.0281, -38.1525, 29.7018, -38.9748, 28.9627, -39.8075, 27.672, -40.0317, 26.0388, -39.9964, -27.9949, -39.6894, -28.6071, -39.1679, -29.1634, -38.5942, -29.6502, -37.9771, -30.0142, -36.1033, -30.0263, -35.1594, -33.5521, -34.2306, -34.7786, -33.2223, -35.8565, -32.1966, -36.6735, -30.9623, -37.3342, -29.6063, -37.7862, -28.0379, -38.0407, 28.9104, -38.0129, 30.2394, -37.5656, 31.4023, -36.9138, 32.4119, -36.1599, 33.3959, -35.227, 34.2393, -34.0896, 34.9039, -32.7861, 35.5428, -31.3932, 36.0259, -29.9753 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="DetectRadius" type="Area2D" parent="Tanks/EnemyTank"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tanks/EnemyTank/DetectRadius"]
+modulate = Color( 1, 0.839216, 0.627451, 1 )
+
+[node name="StopRadius" type="Area2D" parent="Tanks/EnemyTank"]
+gravity = 0.0
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tanks/EnemyTank/StopRadius"]
+modulate = Color( 0.701961, 0.819608, 0.207843, 1 )
+shape = SubResource( 5 )
+
+[node name="UnitDisplay" parent="Tanks/EnemyTank" instance=ExtResource( 6 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Tanks/EnemyTank"]
+anims/fire = SubResource( 1 )
+anims/init = SubResource( 2 )
+anims/muzzle_flash = SubResource( 3 )
+
+[node name="Explosion" parent="Tanks/EnemyTank" instance=ExtResource( 4 )]
+visible = false
+scale = Vector2( 1.2, 1.2 )
+animation = "fire"
+
+[node name="Smoke" parent="Tanks/EnemyTank" instance=ExtResource( 5 )]
+visible = false
+position = Vector2( -19.9828, 0 )
+
+[node name="EnemyTurret" type="KinematicBody2D" parent="Tanks"]
+editor/display_folded = true
+position = Vector2( 690.525, 333.684 )
+rotation = -0.669152
+z_index = -2
+z_as_relative = false
+collision_layer = 4
+collision_mask = 3
+
+[node name="Body" type="Sprite" parent="Tanks/EnemyTurret"]
+editor/display_folded = true
+position = Vector2( 0.0248947, 0.572567 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 172, 89, 48, 48 )
+
+[node name="Leg" type="Sprite" parent="Tanks/EnemyTurret/Body"]
+position = Vector2( 19.9751, -20.5726 )
+rotation = 2.35619
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 72, 94, 52, 36 )
+
+[node name="Leg2" type="Sprite" parent="Tanks/EnemyTurret/Body"]
+position = Vector2( -20.0249, -20.5726 )
+rotation = 0.785397
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 72, 94, 52, 36 )
+
+[node name="Leg3" type="Sprite" parent="Tanks/EnemyTurret/Body"]
+position = Vector2( -20.0249, 19.4274 )
+rotation = -0.785397
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 72, 94, 52, 36 )
+
+[node name="Leg4" type="Sprite" parent="Tanks/EnemyTurret/Body"]
+position = Vector2( 19.9751, 19.4274 )
+rotation = -2.35619
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 72, 94, 52, 36 )
+
+[node name="Light" type="Sprite" parent="Tanks/EnemyTurret/Body"]
+visible = false
+position = Vector2( 37.05, -20.5726 )
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 744, 62, 32, 24 )
+
+[node name="Light2" type="Sprite" parent="Tanks/EnemyTurret/Body"]
+visible = false
+position = Vector2( 37.05, 18.9773 )
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 744, 62, 32, 24 )
+
+[node name="Turret" type="Sprite" parent="Tanks/EnemyTurret"]
+editor/display_folded = true
+scale = Vector2( 0.45, 0.45 )
+z_index = 1
+texture = ExtResource( 3 )
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 596, 342, 96, 96 )
+
+[node name="Barrel" type="Sprite" parent="Tanks/EnemyTurret/Turret"]
+scale = Vector2( 2.5, 2.5 )
+z_index = 1
+texture = ExtResource( 3 )
+offset = Vector2( 20, 0 )
+region_enabled = true
+region_rect = Rect2( 199, 60, 72, 28 )
+
+[node name="ShootSpawn" type="Position2D" parent="Tanks/EnemyTurret/Turret/Barrel"]
+position = Vector2( 45, 0 )
+
+[node name="Flash" type="Sprite" parent="Tanks/EnemyTurret/Turret/Barrel"]
+modulate = Color( 1, 1, 1, 0 )
+region_enabled = true
+
+[node name="GunCooldown" type="Timer" parent="Tanks/EnemyTurret"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tanks/EnemyTurret"]
+visible = false
+polygon = PoolVector2Array( 36.9724, -30.0036, 37.8559, -29.7447, 38.6738, -29.3741, 39.3894, -28.7223, 39.9947, -27.9723, 40.0112, 26.9249, 39.612, 28.4011, 38.7905, 29.596, 37.496, 30.2184, 36.077, 30.6167, 35.6289, 31.7369, 35.0812, 32.8572, 34.3593, 34.1517, 33.6872, 35.3466, 32.5918, 36.2926, 31.4965, 37.1141, 30.3015, 37.7116, 28.9789, 38.0067, -28.9322, 38.0712, -30.0545, 37.6437, -31.0745, 37.1649, -32.1779, 36.4571, -33.2916, 35.4266, -34.1972, 34.1359, -34.9882, 32.7932, -35.6128, 31.3151, -36.0423, 30.0281, -36.9753, 30.0281, -38.1525, 29.7018, -38.9748, 28.9627, -39.8075, 27.672, -40.0317, 26.0388, -39.9964, -27.9949, -39.6894, -28.6071, -39.1679, -29.1634, -38.5942, -29.6502, -37.9771, -30.0142, -36.1033, -30.0263, -35.1594, -33.5521, -34.2306, -34.7786, -33.2223, -35.8565, -32.1966, -36.6735, -30.9623, -37.3342, -29.6063, -37.7862, -28.0379, -38.0407, 28.9104, -38.0129, 30.2394, -37.5656, 31.4023, -36.9138, 32.4119, -36.1599, 33.3959, -35.227, 34.2393, -34.0896, 34.9039, -32.7861, 35.5428, -31.3932, 36.0259, -29.9753 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="DetectRadius" type="Area2D" parent="Tanks/EnemyTurret"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tanks/EnemyTurret/DetectRadius"]
+modulate = Color( 1, 0.839216, 0.627451, 1 )
+
+[node name="StopRadius" type="Area2D" parent="Tanks/EnemyTurret"]
+gravity = 0.0
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tanks/EnemyTurret/StopRadius"]
+modulate = Color( 0.701961, 0.819608, 0.207843, 1 )
+shape = SubResource( 5 )
+
+[node name="UnitDisplay" parent="Tanks/EnemyTurret" instance=ExtResource( 6 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Tanks/EnemyTurret"]
+anims/fire = SubResource( 1 )
+anims/init = SubResource( 2 )
+anims/muzzle_flash = SubResource( 3 )
+
+[node name="Explosion" parent="Tanks/EnemyTurret" instance=ExtResource( 4 )]
+visible = false
+scale = Vector2( 1.2, 1.2 )
+animation = "fire"
+
+[node name="Smoke" parent="Tanks/EnemyTurret" instance=ExtResource( 5 )]
+visible = false
+position = Vector2( -19.9828, 0 )
+
+[node name="Path2D" type="Path2D" parent="Tanks"]
+curve = SubResource( 6 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Tanks/Path2D"]
+position = Vector2( 100.736, 59.5785 )
+rotation = 0.0183715
+
+[node name="EnemyTank2" parent="Tanks/Path2D/PathFollow2D" instance=ExtResource( 7 )]
+editor/display_folded = true
+position = Vector2( 7.71049, 1.33261 )
+rotation = -0.0183715
+z_index = -2
+detect_radius = 0
+
+[node name="TileMap" type="TileMap" parent="."]
+modulate = Color( 0.568627, 0.568627, 0.568627, 1 )
+z_index = -10
+tile_set = ExtResource( 8 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( -1, -1073741824, 0, -65536, -1610612734, 0, -65535, -1073741824, 0, -65534, -1073741824, 0, -65533, -1073741824, 0, -65532, -1073741824, 0, -65531, -1073741824, 0, -65530, -1073741824, 0, -65529, -1073741824, 0, -65528, -1073741824, 0, 65535, -1073741823, 0, 0, -1073741812, 0, 1, -1073741823, 0, 2, -1073741808, 0, 3, -1073741824, 0, 4, -1073741824, 0, 5, -1073741824, 0, 6, -1073741824, 0, 7, -1073741824, 0, 8, -1073741824, 0, 131071, -1073741824, 0, 65536, -1073741822, 0, 65537, -1073741824, 0, 65538, -1073741811, 0, 65539, -1610612735, 0, 65540, -1610612735, 0, 65541, -1610612735, 0, 65542, -1073741808, 0, 65543, -1073741824, 0, 65544, -1073741824, 0, 196607, -1073741824, 0, 131072, -1073741822, 0, 131073, -1073741824, 0, 131074, -1073741824, 0, 131075, -1073741824, 0, 131076, -1073741824, 0, 131077, -1073741824, 0, 131078, -1073741818, 0, 131079, -1610612735, 0, 131080, -1610612735, 0, 262143, -1073741824, 0, 196608, -1073741822, 0, 196609, -1073741824, 0, 196610, -1073741824, 0, 196611, -1073741824, 0, 196612, -1073741824, 0, 196613, -1073741824, 0, 196614, -1073741822, 0, 196615, -1073741824, 0, 196616, -1073741824, 0, 327679, -1073741824, 0, 262144, -1073741811, 0, 262145, -1073741823, 0, 262146, -1073741823, 0, 262147, -1073741823, 0, 262148, -1073741823, 0, 262149, -1073741823, 0, 262150, -1610612730, 0, 262151, -1073741824, 0, 262152, -1073741824, 0, 393215, -1073741824, 0, 327680, -1073741824, 0, 327681, -1073741824, 0, 327682, -1073741824, 0, 327683, -1073741824, 0, 327684, -1073741824, 0, 327685, -1073741824, 0, 327686, -1073741822, 0, 327687, -1073741824, 0, 327688, -1073741824, 0 )
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = -232.0
+custom_fonts/font = SubResource( 4 )
+text = "TANK WARS 2"
+align = 1
+
+[node name="PlayMessage" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = 237.619
+margin_right = 512.0
+margin_bottom = 305.619
+custom_fonts/font = SubResource( 4 )
+text = "Press SPACE to start!"
+align = 1
+
+[node name="Instructions" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -182.396
+margin_right = 511.995
+margin_bottom = 240.602
+custom_fonts/font = SubResource( 4 )
+text = "WASD/ARROWS to move!
+LEFT CLICK to fire bullets!
+RIGHT CLICK to fire missiles!
+METAL CRATES contain missiles and health!"
+align = 1
+
+[node name="Instructions2" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = 118.498
+margin_right = 512.0
+margin_bottom = 186.498
+rect_pivot_offset = Vector2( 512, 34 )
+custom_fonts/font = SubResource( 4 )
+text = "SURVIVE!"
+align = 1
+
+[node name="Pikl" type="TextureRect" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -349.0
+margin_top = -344.0
+margin_right = 163.0
+margin_bottom = 168.0
+rect_rotation = 720.0
+rect_scale = Vector2( 0.001, 0.001 )
+rect_pivot_offset = Vector2( 256, 256 )
+texture = ExtResource( 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "init"
+anims/init = SubResource( 7 )
+anims/start = SubResource( 8 )
+
+[connection signal="timeout" from="Tanks/Player/GunCooldown" to="Tanks/Player" method="_on_GunCooldown_timeout"]
+[connection signal="animation_finished" from="Tanks/Player/Explosion" to="Tanks/Player" method="_on_Explosion_animation_finished"]
+[connection signal="timeout" from="Tanks/EnemyTank/GunCooldown" to="Tanks/EnemyTank" method="_on_GunCooldown_timeout"]
+[connection signal="body_entered" from="Tanks/EnemyTank/DetectRadius" to="Tanks/EnemyTank" method="_on_DetectRadius_body_entered"]
+[connection signal="body_exited" from="Tanks/EnemyTank/DetectRadius" to="Tanks/EnemyTank" method="_on_DetectRadius_body_exited"]
+[connection signal="body_entered" from="Tanks/EnemyTank/StopRadius" to="Tanks/EnemyTank" method="_on_StopRadius_body_entered"]
+[connection signal="body_exited" from="Tanks/EnemyTank/StopRadius" to="Tanks/EnemyTank" method="_on_StopRadius_body_exited"]
+[connection signal="animation_finished" from="Tanks/EnemyTank/Explosion" to="Tanks/EnemyTank" method="_on_Explosion_animation_finished"]
+[connection signal="timeout" from="Tanks/EnemyTurret/GunCooldown" to="Tanks/EnemyTurret" method="_on_GunCooldown_timeout"]
+[connection signal="body_entered" from="Tanks/EnemyTurret/DetectRadius" to="Tanks/EnemyTurret" method="_on_DetectRadius_body_entered"]
+[connection signal="body_exited" from="Tanks/EnemyTurret/DetectRadius" to="Tanks/EnemyTurret" method="_on_DetectRadius_body_exited"]
+[connection signal="body_entered" from="Tanks/EnemyTurret/StopRadius" to="Tanks/EnemyTurret" method="_on_StopRadius_body_entered"]
+[connection signal="body_exited" from="Tanks/EnemyTurret/StopRadius" to="Tanks/EnemyTurret" method="_on_StopRadius_body_exited"]
+[connection signal="animation_finished" from="Tanks/EnemyTurret/Explosion" to="Tanks/EnemyTurret" method="_on_Explosion_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

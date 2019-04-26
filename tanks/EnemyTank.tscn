@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://tanks/Tank.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tanks/EnemyTank.gd" type="Script" id=2]
+[ext_resource path="res://bullets/EnemyBullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://bullets/EnemyMissile.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UI/UnitDisplay.tscn" type="PackedScene" id=5]
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 130.0
+
+[node name="EnemyTank" instance=ExtResource( 1 )]
+z_index = 4
+z_as_relative = false
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 2 )
+Bullet = ExtResource( 3 )
+Missile = ExtResource( 4 )
+gun_cooldown = 0.65
+health = 100
+max_health = 100
+speed = 250
+max_speed = 250
+acceleration = 0.01
+friction = 0.2
+rotation_speed = 0.5
+turret_speed = 2.0
+detect_radius = 420
+missile_chance = 15
+
+[node name="Body" parent="." index="0"]
+region_rect = Rect2( 268, 186, 80, 76 )
+
+[node name="Turret" parent="." index="1"]
+region_rect = Rect2( 104, 345, 112, 97 )
+
+[node name="Barrel" parent="Turret" index="0"]
+region_rect = Rect2( 452, 34, 60, 24 )
+
+[node name="DetectRadius" type="Area2D" parent="." index="4"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectRadius" index="0"]
+modulate = Color( 1, 0.839216, 0.627451, 1 )
+
+[node name="StopRadius" type="Area2D" parent="." index="5"]
+gravity = 0.0
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StopRadius" index="0"]
+modulate = Color( 0.701961, 0.819608, 0.207843, 1 )
+shape = SubResource( 5 )
+
+[node name="UnitDisplay" parent="." index="6" instance=ExtResource( 5 )]
+
+[connection signal="health_changed" from="." to="UnitDisplay" method="update_healthbar"]
+[connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
+[connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]
+[connection signal="body_entered" from="StopRadius" to="." method="_on_StopRadius_body_entered"]
+[connection signal="body_exited" from="StopRadius" to="." method="_on_StopRadius_body_exited"]

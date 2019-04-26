@@ -1,0 +1,140 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://tanks/Tank.gd" type="Script" id=1]
+[ext_resource path="res://assets/onlyObjects_retina_rotated.png" type="Texture" id=2]
+[ext_resource path="res://effects/Explosion.tscn" type="PackedScene" id=3]
+[ext_resource path="res://effects/Smoke.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "fire"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Turret/Barrel:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 20, 0 ), Vector2( 10, 0 ), Vector2( 20, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Turret/Barrel/Flash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Turret/Barrel/Flash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.11, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Turret/Barrel/Flash:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.02, 0.07 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+}
+
+[node name="Tank" type="KinematicBody2D"]
+script = ExtResource( 1 )
+offroad_friction = 1.0
+
+[node name="Body" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 0.0248947, 0.572567 )
+z_index = -2
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 308, 262, 80, 84 )
+
+[node name="Light" type="Sprite" parent="Body"]
+position = Vector2( 37.05, -20.5726 )
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 744, 62, 32, 24 )
+
+[node name="Light2" type="Sprite" parent="Body"]
+position = Vector2( 37.05, 18.9773 )
+scale = Vector2( 0.75, 0.75 )
+z_index = -1
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 744, 62, 32, 24 )
+
+[node name="Turret" type="Sprite" parent="."]
+scale = Vector2( 0.4, 0.4 )
+z_index = 2
+texture = ExtResource( 2 )
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 104, 346, 112, 96 )
+
+[node name="Barrel" type="Sprite" parent="Turret"]
+scale = Vector2( 2.5, 2.5 )
+z_index = -1
+texture = ExtResource( 2 )
+offset = Vector2( 20, 0 )
+region_enabled = true
+region_rect = Rect2( 684, 14, 60, 24 )
+
+[node name="ShootSpawn" type="Position2D" parent="Turret/Barrel"]
+position = Vector2( 45, 0 )
+
+[node name="Flash" type="Sprite" parent="Turret/Barrel"]
+modulate = Color( 1, 1, 1, 0 )
+region_enabled = true
+
+[node name="GunCooldown" type="Timer" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( 36.9724, -30.0036, 37.8559, -29.7447, 38.6738, -29.3741, 39.3894, -28.7223, 39.9947, -27.9723, 40.0112, 26.9249, 39.612, 28.4011, 38.7905, 29.596, 37.496, 30.2184, 36.077, 30.6167, 35.6289, 31.7369, 35.0812, 32.8572, 34.3593, 34.1517, 33.6872, 35.3466, 32.5918, 36.2926, 31.4965, 37.1141, 30.3015, 37.7116, 28.9789, 38.0067, -28.9322, 38.0712, -30.0545, 37.6437, -31.0745, 37.1649, -32.1779, 36.4571, -33.2916, 35.4266, -34.1972, 34.1359, -34.9882, 32.7932, -35.6128, 31.3151, -36.0423, 30.0281, -36.9753, 30.0281, -38.1525, 29.7018, -38.9748, 28.9627, -39.8075, 27.672, -40.0317, 26.0388, -39.9964, -27.9949, -39.6894, -28.6071, -39.1679, -29.1634, -38.5942, -29.6502, -37.9771, -30.0142, -36.1033, -30.0263, -35.1594, -33.5521, -34.2306, -34.7786, -33.2223, -35.8565, -32.1966, -36.6735, -30.9623, -37.3342, -29.6063, -37.7862, -28.0379, -38.0407, 28.9104, -38.0129, 30.2394, -37.5656, 31.4023, -36.9138, 32.4119, -36.1599, 33.3959, -35.227, 34.2393, -34.0896, 34.9039, -32.7861, 35.5428, -31.3932, 36.0259, -29.9753 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fire = SubResource( 1 )
+anims/init = SubResource( 2 )
+anims/muzzle_flash = SubResource( 3 )
+
+[node name="Explosion" parent="." instance=ExtResource( 3 )]
+scale = Vector2( 1.2, 1.2 )
+animation = "fire"
+
+[node name="Smoke" parent="." instance=ExtResource( 4 )]
+position = Vector2( -19.9828, 0 )
+
+[connection signal="timeout" from="GunCooldown" to="." method="_on_GunCooldown_timeout"]
+[connection signal="animation_finished" from="Explosion" to="." method="_on_Explosion_animation_finished"]
